@@ -1,5 +1,35 @@
-<div class="card">
-    <div class="card-body">
-        EUR -> USD: <b>{{rate.rates['USD']}}</b>
+<div class="row">
+    <div class="col-md-6 mt-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="" class="form-label">Pasirinkite valiutą konvertuoti iš:</label>
+                    <select name="category" id="category" class="form-control" [(ngModel)]="selectedCurrencyFrom">
+                        <option *ngFor="let currency of currencies" [value]="currency.code">{{currency.name}}</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Pasirinkite valiutą konvertuoti į:</label>
+                    <select name="category" id="category" class="form-control" [(ngModel)]="selectedCurrencyTo">
+                        <option *ngFor="let currency of currencies" [value]="currency.code">{{currency.name}}</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" [disabled]="false" (click)="getCurrencyRate()" [disabled]="selectedCurrencyFrom == '' && selectedCurrencyFrom == ''">Rodyti</button>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="col-md-6 mt-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="alert alert-info" *ngIf="!rate.rates[loadedCurrencyTo]">
+                Pasirinkite valiutas konvertavimui!
+                </div>
+
+                <div *ngIf="rate.rates[loadedCurrencyTo]">
+                {{loadedCurrencyFrom}} -> {{loadedCurrencyFrom}}: <b>{{this.rate.rates[loadedCurrencyTo]}}</b>
+                </div>
+            </div>
+        </div>
+  </div>
+  
